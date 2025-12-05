@@ -1,7 +1,6 @@
 <template>
   <div class="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
     <NuxtRouteAnnouncer />
-    <UNotifications />
     
     <!-- Navigation -->
     <nav class="fixed top-0 left-0 right-0 z-50 bg-gray-900/80 backdrop-blur-md border-b border-cyan-500/20">
@@ -24,9 +23,9 @@
             <a href="#paquetes" class="hover:text-cyan-400 transition-colors">Paquetes</a>
             <a href="#contacto" class="hover:text-cyan-400 transition-colors">Contacto</a>
           </div>
-          <UButton color="primary" variant="solid" size="lg" class="hidden md:block">
+          <button class="hidden md:block px-6 py-3 bg-cyan-500 hover:bg-cyan-600 text-white font-semibold rounded-lg transition-colors">
             Comenzar
-          </UButton>
+          </button>
         </div>
       </div>
     </nav>
@@ -50,17 +49,15 @@
             Impulsamos tu marca con tecnología láser y estrategias digitales de última generación
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style="animation-delay: 0.4s;">
-            <UButton color="primary" size="xl" class="text-lg">
-              <span class="flex items-center gap-2">
-                Solicitar Demo
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </span>
-            </UButton>
-            <UButton color="white" variant="outline" size="xl" class="text-lg">
+            <button class="px-8 py-4 bg-cyan-500 hover:bg-cyan-600 text-white font-semibold rounded-lg transition-colors text-lg flex items-center justify-center gap-2">
+              Solicitar Demo
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </button>
+            <button class="px-8 py-4 border-2 border-white hover:bg-white hover:text-gray-900 text-white font-semibold rounded-lg transition-colors text-lg">
               Ver Servicios
-            </UButton>
+            </button>
           </div>
         </div>
       </div>
@@ -167,9 +164,15 @@
                 <span class="text-gray-300">{{ feature }}</span>
               </li>
             </ul>
-            <UButton :color="pkg.featured ? 'primary' : 'white'" :variant="pkg.featured ? 'solid' : 'outline'" block size="lg">
+            <button 
+              :class="[
+                'w-full px-6 py-3 font-semibold rounded-lg transition-colors',
+                pkg.featured 
+                  ? 'bg-cyan-500 hover:bg-cyan-600 text-white' 
+                  : 'border-2 border-white hover:bg-white hover:text-gray-900 text-white'
+              ]">
               Seleccionar Plan
-            </UButton>
+            </button>
           </div>
         </div>
       </div>
@@ -188,48 +191,59 @@
         <div class="bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-2xl border border-cyan-500/20 p-8 md:p-12">
           <form @submit.prevent="handleSubmit" class="space-y-6">
             <div class="grid md:grid-cols-2 gap-6">
-              <UFormGroup label="Nombre" required>
-                <UInput 
+              <div>
+                <label class="block text-sm font-medium mb-2 text-gray-300">Nombre *</label>
+                <input 
                   v-model="form.name"
+                  type="text"
                   placeholder="Tu nombre"
-                  size="lg"
                   required
+                  class="w-full px-4 py-3 bg-gray-900/50 border border-cyan-500/30 rounded-lg focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 text-white placeholder-gray-500"
                 />
-              </UFormGroup>
-              <UFormGroup label="Email" required>
-                <UInput 
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-2 text-gray-300">Email *</label>
+                <input 
                   v-model="form.email"
                   type="email"
                   placeholder="tu@email.com"
-                  size="lg"
                   required
+                  class="w-full px-4 py-3 bg-gray-900/50 border border-cyan-500/30 rounded-lg focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 text-white placeholder-gray-500"
                 />
-              </UFormGroup>
+              </div>
             </div>
-            <UFormGroup label="Empresa">
-              <UInput 
+            <div>
+              <label class="block text-sm font-medium mb-2 text-gray-300">Empresa</label>
+              <input 
                 v-model="form.company"
+                type="text"
                 placeholder="Nombre de tu empresa"
-                size="lg"
+                class="w-full px-4 py-3 bg-gray-900/50 border border-cyan-500/30 rounded-lg focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 text-white placeholder-gray-500"
               />
-            </UFormGroup>
-            <UFormGroup label="Mensaje" required>
-              <UTextarea 
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-2 text-gray-300">Mensaje *</label>
+              <textarea 
                 v-model="form.message"
-                :rows="5" 
+                rows="5"
                 placeholder="Cuéntanos sobre tu proyecto..."
-                size="lg"
                 required
-              />
-            </UFormGroup>
-            <UButton type="submit" color="primary" size="xl" block :loading="isSubmitting" :disabled="isSubmitting">
-              <span class="flex items-center justify-center gap-2">
-                {{ isSubmitting ? 'Enviando...' : 'Enviar Mensaje' }}
-                <svg v-if="!isSubmitting" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </span>
-            </UButton>
+                class="w-full px-4 py-3 bg-gray-900/50 border border-cyan-500/30 rounded-lg focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 text-white placeholder-gray-500 resize-none"
+              ></textarea>
+            </div>
+            <button 
+              type="submit" 
+              :disabled="isSubmitting"
+              class="w-full px-8 py-4 bg-cyan-500 hover:bg-cyan-600 text-white font-semibold rounded-lg transition-colors text-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {{ isSubmitting ? 'Enviando...' : 'Enviar Mensaje' }}
+              <svg v-if="!isSubmitting" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </button>
+            <div v-if="submitMessage" :class="['text-center py-2 px-4 rounded-lg', submitSuccess ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400']">
+              {{ submitMessage }}
+            </div>
           </form>
         </div>
       </div>
@@ -384,30 +398,25 @@ const form = ref({
   message: ''
 })
 
-const toast = useToast()
 const isSubmitting = ref(false)
+const submitMessage = ref('')
+const submitSuccess = ref(false)
 
 const handleSubmit = async () => {
+  submitMessage.value = ''
+  
   // Basic validation
   if (!form.value.name || !form.value.email || !form.value.message) {
-    toast.add({
-      title: 'Error',
-      description: 'Por favor completa todos los campos requeridos.',
-      color: 'red',
-      timeout: 3000
-    })
+    submitMessage.value = 'Por favor completa todos los campos requeridos.'
+    submitSuccess.value = false
     return
   }
 
   // Email validation - using a more robust pattern
   const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
   if (!emailRegex.test(form.value.email)) {
-    toast.add({
-      title: 'Error',
-      description: 'Por favor ingresa un email válido.',
-      color: 'red',
-      timeout: 3000
-    })
+    submitMessage.value = 'Por favor ingresa un email válido.'
+    submitSuccess.value = false
     return
   }
 
@@ -417,21 +426,18 @@ const handleSubmit = async () => {
   try {
     await new Promise(resolve => setTimeout(resolve, 1000))
     
-    toast.add({
-      title: '¡Mensaje enviado!',
-      description: 'Gracias por tu interés. Nos pondremos en contacto contigo pronto.',
-      color: 'primary',
-      timeout: 5000
-    })
+    submitMessage.value = '¡Mensaje enviado! Gracias por tu interés. Nos pondremos en contacto contigo pronto.'
+    submitSuccess.value = true
     
     form.value = { name: '', email: '', company: '', message: '' }
+    
+    // Clear success message after 5 seconds
+    setTimeout(() => {
+      submitMessage.value = ''
+    }, 5000)
   } catch (error) {
-    toast.add({
-      title: 'Error',
-      description: 'Hubo un problema al enviar tu mensaje. Por favor intenta de nuevo.',
-      color: 'red',
-      timeout: 3000
-    })
+    submitMessage.value = 'Hubo un problema al enviar tu mensaje. Por favor intenta de nuevo.'
+    submitSuccess.value = false
   } finally {
     isSubmitting.value = false
   }
