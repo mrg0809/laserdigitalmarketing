@@ -188,46 +188,40 @@
         <div class="bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-2xl border border-cyan-500/20 p-8 md:p-12">
           <form @submit.prevent="handleSubmit" class="space-y-6">
             <div class="grid md:grid-cols-2 gap-6">
-              <div>
-                <label class="block text-sm font-medium mb-2 text-gray-300">Nombre</label>
-                <input 
+              <UFormGroup label="Nombre" required>
+                <UInput 
                   v-model="form.name"
-                  type="text" 
-                  class="w-full px-4 py-3 bg-gray-900/50 border border-cyan-500/30 rounded-lg focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 text-white"
                   placeholder="Tu nombre"
+                  size="lg"
                   required
                 />
-              </div>
-              <div>
-                <label class="block text-sm font-medium mb-2 text-gray-300">Email</label>
-                <input 
+              </UFormGroup>
+              <UFormGroup label="Email" required>
+                <UInput 
                   v-model="form.email"
-                  type="email" 
-                  class="w-full px-4 py-3 bg-gray-900/50 border border-cyan-500/30 rounded-lg focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 text-white"
+                  type="email"
                   placeholder="tu@email.com"
+                  size="lg"
                   required
                 />
-              </div>
+              </UFormGroup>
             </div>
-            <div>
-              <label class="block text-sm font-medium mb-2 text-gray-300">Empresa</label>
-              <input 
+            <UFormGroup label="Empresa">
+              <UInput 
                 v-model="form.company"
-                type="text" 
-                class="w-full px-4 py-3 bg-gray-900/50 border border-cyan-500/30 rounded-lg focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 text-white"
                 placeholder="Nombre de tu empresa"
+                size="lg"
               />
-            </div>
-            <div>
-              <label class="block text-sm font-medium mb-2 text-gray-300">Mensaje</label>
-              <textarea 
+            </UFormGroup>
+            <UFormGroup label="Mensaje" required>
+              <UTextarea 
                 v-model="form.message"
-                rows="5" 
-                class="w-full px-4 py-3 bg-gray-900/50 border border-cyan-500/30 rounded-lg focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 text-white"
+                :rows="5" 
                 placeholder="Cuéntanos sobre tu proyecto..."
+                size="lg"
                 required
-              ></textarea>
-            </div>
+              />
+            </UFormGroup>
             <UButton type="submit" color="primary" size="xl" block :loading="isSubmitting" :disabled="isSubmitting">
               <span class="flex items-center justify-center gap-2">
                 {{ isSubmitting ? 'Enviando...' : 'Enviar Mensaje' }}
@@ -405,8 +399,8 @@ const handleSubmit = async () => {
     return
   }
 
-  // Email validation
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  // Email validation - using a more robust pattern
+  const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
   if (!emailRegex.test(form.value.email)) {
     toast.add({
       title: 'Error',
