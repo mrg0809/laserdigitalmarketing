@@ -1,6 +1,7 @@
 <template>
   <div class="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
     <NuxtRouteAnnouncer />
+    <UNotifications />
     
     <!-- Navigation -->
     <nav class="fixed top-0 left-0 right-0 z-50 bg-gray-900/80 backdrop-blur-md border-b border-cyan-500/20">
@@ -227,10 +228,10 @@
                 required
               ></textarea>
             </div>
-            <UButton type="submit" color="primary" size="xl" block>
+            <UButton type="submit" color="primary" size="xl" block :loading="isSubmitting" :disabled="isSubmitting">
               <span class="flex items-center justify-center gap-2">
-                Enviar Mensaje
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {{ isSubmitting ? 'Enviando...' : 'Enviar Mensaje' }}
+                <svg v-if="!isSubmitting" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </span>
@@ -389,9 +390,57 @@ const form = ref({
   message: ''
 })
 
-const handleSubmit = () => {
-  alert('¡Gracias por tu interés! Nos pondremos en contacto contigo pronto.')
-  form.value = { name: '', email: '', company: '', message: '' }
+const toast = useToast()
+const isSubmitting = ref(false)
+
+const handleSubmit = async () => {
+  // Basic validation
+  if (!form.value.name || !form.value.email || !form.value.message) {
+    toast.add({
+      title: 'Error',
+      description: 'Por favor completa todos los campos requeridos.',
+      color: 'red',
+      timeout: 3000
+    })
+    return
+  }
+
+  // Email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!emailRegex.test(form.value.email)) {
+    toast.add({
+      title: 'Error',
+      description: 'Por favor ingresa un email válido.',
+      color: 'red',
+      timeout: 3000
+    })
+    return
+  }
+
+  isSubmitting.value = true
+  
+  // Simulate form submission (in production, this would send to a backend)
+  try {
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    
+    toast.add({
+      title: '¡Mensaje enviado!',
+      description: 'Gracias por tu interés. Nos pondremos en contacto contigo pronto.',
+      color: 'primary',
+      timeout: 5000
+    })
+    
+    form.value = { name: '', email: '', company: '', message: '' }
+  } catch (error) {
+    toast.add({
+      title: 'Error',
+      description: 'Hubo un problema al enviar tu mensaje. Por favor intenta de nuevo.',
+      color: 'red',
+      timeout: 3000
+    })
+  } finally {
+    isSubmitting.value = false
+  }
 }
 </script>
 
