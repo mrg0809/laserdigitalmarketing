@@ -7,12 +7,8 @@
       <div class="container mx-auto px-4 py-4">
         <div class="flex items-center justify-between">
           <div class="flex items-center space-x-3">
-            <!-- Logo SVG -->
-            <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
-              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-            </div>
+            <!-- Company Logo - Replace /logo.svg with your actual logo file -->
+            <img src="/logo.svg" alt="Marketing Láser Digital Logo" class="w-12 h-12 rounded-lg" />
             <span class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
               Marketing Láser Digital
             </span>
@@ -255,11 +251,7 @@
         <div class="grid md:grid-cols-4 gap-8 mb-8">
           <div>
             <div class="flex items-center space-x-2 mb-4">
-              <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
-                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-              </div>
+              <img src="/logo.svg" alt="Marketing Láser Digital Logo" class="w-10 h-10 rounded-lg" />
               <span class="font-bold text-cyan-400">Marketing Láser</span>
             </div>
             <p class="text-gray-400 text-sm">Transformamos marcas con innovación digital</p>
