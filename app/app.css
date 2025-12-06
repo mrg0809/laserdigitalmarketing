@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@theme {
+  /* Custom theme configuration for Marketing Láser Digital */
+  --color-primary: #06b6d4;
+  --color-primary-dark: #0891b2;
+}

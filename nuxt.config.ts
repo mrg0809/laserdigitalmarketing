@@ -2,6 +2,7 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/ui'
   ],
+  css: ['~/app.css'],
   colorMode: {
     preference: 'dark'
   },
